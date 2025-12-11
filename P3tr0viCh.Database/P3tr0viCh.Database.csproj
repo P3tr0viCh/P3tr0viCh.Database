@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions.cs" />
     <Compile Include="BaseId.cs" />
     <Compile Include="ConnectionBase.cs" />
     <Compile Include="ConnectionLogin.cs" />
@@ -81,6 +82,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Query.cs" />
     <Compile Include="Sql.cs" />
   </ItemGroup>
   <ItemGroup>
