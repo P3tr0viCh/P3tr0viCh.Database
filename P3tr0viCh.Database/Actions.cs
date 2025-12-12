@@ -10,7 +10,7 @@ namespace P3tr0viCh.Database
 {
     public static class Actions
     {
-        public static async Task ListItemSaveAsync<T>(DbConnection connection, DbTransaction transaction, BaseId value) where T : BaseId
+        public static async Task ListItemSaveAsync<T>(DbConnection connection, DbTransaction transaction, T value) where T : BaseId
         {
             if (value.Id == Sql.NewId)
             {
@@ -22,7 +22,7 @@ namespace P3tr0viCh.Database
             }
         }
 
-        public static async Task ListItemDeleteAsync<T>(DbConnection connection, DbTransaction transaction, BaseId value) where T : BaseId
+        public static async Task ListItemDeleteAsync<T>(DbConnection connection, DbTransaction transaction, T value) where T : BaseId
         {
             await connection.DeleteAsync(value, transaction);
         }
