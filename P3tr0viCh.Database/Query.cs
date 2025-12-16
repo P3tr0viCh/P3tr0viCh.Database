@@ -4,36 +4,36 @@ namespace P3tr0viCh.Database
 {
     public class Query
     {
-        public string fields = string.Empty;
-        public string table = string.Empty;
-        public string where = string.Empty;
-        public string group = string.Empty;
-        public string order = string.Empty;
-        public int limit = 0;
-        public int offset = 0;
+        public string Fields { get; set; } = string.Empty;
+        public string Table { get; set; } = string.Empty;
+        public string Where { get; set; } = string.Empty;
+        public string Group { get; set; } = string.Empty;
+        public string Order { get; set; } = string.Empty;
+        public int Limit { get; set; } = 0;
+        public int Offset { get; set; } = 0;
 
-        public string Select()
+        public override string ToString()
         {
-            if (fields.IsEmpty())
+            if (Fields.IsEmpty())
             {
-                fields = "*";
+                Fields = "*";
             }
 
-            var sql = "SELECT " + fields;
+            var sql = "SELECT " + Fields;
 
-            sql = sql.JoinExcludeEmpty(" FROM ", table);
-            sql = sql.JoinExcludeEmpty(" WHERE ", where);
-            sql = sql.JoinExcludeEmpty(" GROUP BY ", group);
-            sql = sql.JoinExcludeEmpty(" ORDER BY ", order);
+            sql = sql.JoinExcludeEmpty(" FROM ", Table);
+            sql = sql.JoinExcludeEmpty(" WHERE ", Where);
+            sql = sql.JoinExcludeEmpty(" GROUP BY ", Group);
+            sql = sql.JoinExcludeEmpty(" ORDER BY ", Order);
 
-            if (limit > 0)
+            if (Limit > 0)
             {
-                sql = sql.JoinExcludeEmpty(" LIMIT ", limit.ToString());
+                sql = sql.JoinExcludeEmpty(" LIMIT ", Limit.ToString());
             }
 
-            if (offset > 0)
+            if (Offset > 0)
             {
-                sql = sql.JoinExcludeEmpty(" OFFSET ", offset.ToString());
+                sql = sql.JoinExcludeEmpty(" OFFSET ", Offset.ToString());
             }
 
             return sql;

@@ -35,11 +35,11 @@ namespace P3tr0viCh.Database
             {
                 query = new Query()
                 {
-                    table = Sql.TableName<T>(),
+                    Table = Sql.TableName<T>(),
                 };
             }
 
-            var sql = query.Select();
+            var sql = query.ToString();
 
             DebugWrite.Line(sql);
 
