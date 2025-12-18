@@ -35,6 +35,8 @@ namespace P3tr0viCh.Database
             {
                 sql = sql.JoinExcludeEmpty(" OFFSET ", Offset.ToString());
             }
+            
+            sql += ";";
 
             return sql;
         }

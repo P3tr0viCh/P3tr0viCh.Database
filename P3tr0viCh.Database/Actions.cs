@@ -27,10 +27,38 @@ namespace P3tr0viCh.Database
             await connection.DeleteAsync(value, transaction);
         }
 
-        public static async Task<List<T>> ListLoadAsync<T>(DbConnection connection, Query query = null)
+        public static async Task<IEnumerable<T>> ListLoadAsync<T>(DbConnection connection, string sql)
         {
             DebugWrite.Line(typeof(T).Name);
 
+            if (sql.IsEmpty())
+            {
+                var query = new Query()
+                {
+                    Table = Sql.TableName<T>(),
+                };
+
+                sql = query.ToString();
+            }
+
+            DebugWrite.Line(sql.ReplaceEol());
+
+            try
+            {
+                var list = await connection.QueryAsync<T>(sql);
+
+                return list;
+            }
+            catch (Exception e)
+            {
+                Sql.ExceptionAddQuery(e, sql);
+
+                throw;
+            }
+        }
+
+        public static async Task<IEnumerable<T>> ListLoadAsync<T>(DbConnection connection, Query query = null)
+        {
             if (query == null)
             {
                 query = new Query()
@@ -41,20 +69,7 @@ namespace P3tr0viCh.Database
 
             var sql = query.ToString();
 
-            DebugWrite.Line(sql);
-
-            try
-            {
-                var list = await connection.QueryAsync<T>(sql);
-
-                return list.AsList();
-            }
-            catch (Exception e)
-            {
-                Sql.ExceptionAddQuery(e, sql);
-
-                throw;
-            }
+            return await ListLoadAsync<T>(connection, sql);
         }
     }
 }
