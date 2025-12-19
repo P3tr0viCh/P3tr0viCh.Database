@@ -1,5 +1,4 @@
 ﻿using P3tr0viCh.Utils;
-using System;
 using System.Linq;
 
 namespace P3tr0viCh.Database
@@ -26,18 +25,6 @@ namespace P3tr0viCh.Database
             if (!alias.IsEmpty()) sql += " AS " + alias;
 
             return sql;
-        }
-
-        private readonly static string DataQuery = "QUERY";
-
-        public static void ExceptionAddQuery(Exception e, string query)
-        {
-            e.Data.Add(DataQuery, query);
-        }
-
-        public static string ExceptionGetQuery(Exception e)
-        {
-            return Convert.ToString(e?.Data[DataQuery]);
         }
     }
 }

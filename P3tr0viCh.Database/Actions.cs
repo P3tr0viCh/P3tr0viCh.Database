@@ -51,7 +51,7 @@ namespace P3tr0viCh.Database
             }
             catch (Exception e)
             {
-                Sql.ExceptionAddQuery(e, sql);
+                e.AddQuery(sql);
 
                 throw;
             }
