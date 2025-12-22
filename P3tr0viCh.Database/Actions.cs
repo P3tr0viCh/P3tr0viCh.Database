@@ -10,7 +10,7 @@ namespace P3tr0viCh.Database
 {
     public static class Actions
     {
-        public static async Task ListItemSaveAsync<T>(DbConnection connection, DbTransaction transaction, T value) where T : BaseId
+        public static async Task ListItemSaveAsync<T>(DbConnection connection, T value, DbTransaction transaction = null) where T : BaseId
         {
             if (value.Id == Sql.NewId)
             {
@@ -22,16 +22,72 @@ namespace P3tr0viCh.Database
             }
         }
 
-        public static async Task ListItemDeleteAsync<T>(DbConnection connection, DbTransaction transaction, T value) where T : BaseId
+        public static async Task ListItemSaveAsync<T>(DbConnection connection, IEnumerable<T> values, DbTransaction transaction = null) where T : BaseId
+        {
+            foreach (var value in values)
+            {
+                await ListItemSaveAsync(connection, value, transaction);
+            }
+        }
+
+        public static async Task ListItemSaveAsync<T>(DbConnection connection, IEnumerable<T> values) where T : BaseId
+        {
+            await connection.OpenAsync();
+
+            using (var transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    await ListItemSaveAsync(connection, values, transaction);
+
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
+
+        public static async Task ListItemDeleteAsync<T>(DbConnection connection, T value, DbTransaction transaction = null) where T : BaseId
         {
             await connection.DeleteAsync(value, transaction);
         }
 
-        public static async Task<IEnumerable<T>> ListLoadAsync<T>(DbConnection connection, string sql)
+        public static async Task ListItemDeleteAsync<T>(DbConnection connection, IEnumerable<T> values, DbTransaction transaction = null) where T : BaseId
+        {
+            foreach (var value in values)
+            {
+                await ListItemDeleteAsync(connection, value, transaction);
+            }
+        }
+
+        public static async Task ListItemDeleteAsync<T>(DbConnection connection, IEnumerable<T> values) where T : BaseId
+        {
+            await connection.OpenAsync();
+
+            using (var transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    await ListItemDeleteAsync(connection, values, transaction);
+
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
+
+        public static async Task<IEnumerable<T>> ListLoadAsync<T>(DbConnection connection, string sql = null, object param = null, DbTransaction transaction = null)
         {
             DebugWrite.Line(typeof(T).Name);
 
-            if (sql.IsEmpty())
+            if (Str.IsEmpty(sql))
             {
                 var query = new Query()
                 {
@@ -45,7 +101,7 @@ namespace P3tr0viCh.Database
 
             try
             {
-                var list = await connection.QueryAsync<T>(sql);
+                var list = await connection.QueryAsync<T>(sql, param, transaction);
 
                 return list;
             }
@@ -57,7 +113,7 @@ namespace P3tr0viCh.Database
             }
         }
 
-        public static async Task<IEnumerable<T>> ListLoadAsync<T>(DbConnection connection, Query query = null)
+        public static async Task<IEnumerable<T>> ListLoadAsync<T>(DbConnection connection, Query query = null, object param = null, DbTransaction transaction = null)
         {
             if (query == null)
             {
@@ -69,7 +125,39 @@ namespace P3tr0viCh.Database
 
             var sql = query.ToString();
 
-            return await ListLoadAsync<T>(connection, sql);
+            return await ListLoadAsync<T>(connection, sql, param, transaction);
+        }
+
+        public static async Task<T> QueryFirstOrDefaultAsync<T>(DbConnection connection, string sql, object param = null, DbTransaction transaction = null)
+        {
+            try
+            {
+                DebugWrite.Line(sql.ReplaceEol());
+
+                return await connection.QueryFirstOrDefaultAsync<T>(sql, param, transaction);
+            }
+            catch (Exception e)
+            {
+                e.AddQuery(sql);
+
+                throw;
+            }
+        }
+
+        public static async Task<int> ExecuteAsync(DbConnection connection, string sql, object param = null, DbTransaction transaction = null)
+        {
+            try
+            {
+                DebugWrite.Line(sql.ReplaceEol());
+
+                return await connection.ExecuteAsync(sql, param, transaction);
+            }
+            catch (Exception e)
+            {
+                e.AddQuery(sql);
+
+                throw;
+            }
         }
     }
 }
