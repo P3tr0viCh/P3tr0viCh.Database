@@ -17,6 +17,9 @@ namespace P3tr0viCh.Database
                                     select row)
                 {
                     row.Selected = true;
+
+                    dataGridView.FirstDisplayedScrollingRowIndex = row.Index;
+
                     break;
                 }
             }
@@ -31,6 +34,9 @@ namespace P3tr0viCh.Database
                                 select row)
             {
                 row.Selected = true;
+
+                dataGridView.FirstDisplayedScrollingRowIndex = row.Index;
+
                 break;
             }
         }
