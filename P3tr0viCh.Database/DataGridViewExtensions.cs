@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using P3tr0viCh.Utils;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -6,8 +7,6 @@ namespace P3tr0viCh.Database
 {
     public static class DataGridViewExtensions
     {
-        public static bool IsEmpty(this DataGridView dataGridView) => dataGridView.Rows.Count == 0;
-
         public static DataGridViewRow Find(this DataGridView dataGridView, BaseId value)
         {
             if (value == null) return null;
@@ -43,16 +42,6 @@ namespace P3tr0viCh.Database
             }
 
             return result;
-        }
-
-        public static void SelectAndScroll(this DataGridViewRow row)
-        {
-            row.Selected = true;
-
-            if (!row.Displayed)
-            {
-                row.DataGridView.FirstDisplayedScrollingRowIndex = row.Index;
-            }
         }
 
         public static void SetSelectedRows(this DataGridView dataGridView, IEnumerable<BaseId> values)
