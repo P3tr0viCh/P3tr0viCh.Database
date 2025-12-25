@@ -4,12 +4,26 @@ using P3tr0viCh.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace P3tr0viCh.Database
 {
     public static class Actions
     {
+        [Conditional("DEBUG")]
+        private static void DebugWriteSql(string sql, object param)
+        {
+#if DEBUG
+            DebugWrite.Line(sql.SingleLine());
+
+            if (param != null)
+            {
+                DebugWrite.Line($"params: {param}");
+            }
+#endif
+        }
+
         public static async Task ListItemSaveAsync<T>(DbConnection connection, T value, DbTransaction transaction = null) where T : BaseId
         {
             if (value.Id == Sql.NewId)
@@ -87,7 +101,7 @@ namespace P3tr0viCh.Database
         {
             DebugWrite.Line(typeof(T).Name);
 
-            if (Str.IsEmpty(sql))
+            if (string.IsNullOrWhiteSpace(sql))
             {
                 var query = new Query()
                 {
@@ -97,7 +111,7 @@ namespace P3tr0viCh.Database
                 sql = query.ToString();
             }
 
-            DebugWrite.Line(sql.ReplaceEol());
+            DebugWriteSql(sql, param);
 
             try
             {
@@ -132,7 +146,7 @@ namespace P3tr0viCh.Database
         {
             try
             {
-                DebugWrite.Line(sql.ReplaceEol());
+                DebugWriteSql(sql, param);
 
                 return await connection.QueryFirstOrDefaultAsync<T>(sql, param, transaction);
             }
@@ -144,11 +158,26 @@ namespace P3tr0viCh.Database
             }
         }
 
+        public static async Task<T> QueryFirstOrDefaultAsync<T>(DbConnection connection, Query query = null, object param = null, DbTransaction transaction = null)
+        {
+            if (query == null)
+            {
+                query = new Query()
+                {
+                    Table = Sql.TableName<T>(),
+                };
+            }
+
+            var sql = query.ToString();
+
+            return await QueryFirstOrDefaultAsync<T>(connection, sql, param, transaction);
+        }
+
         public static async Task<int> ExecuteAsync(DbConnection connection, string sql, object param = null, DbTransaction transaction = null)
         {
             try
             {
-                DebugWrite.Line(sql.ReplaceEol());
+                DebugWriteSql(sql, param);
 
                 return await connection.ExecuteAsync(sql, param, transaction);
             }
