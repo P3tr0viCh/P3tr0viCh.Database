@@ -5,7 +5,7 @@ namespace P3tr0viCh.Database
 {
     public class Sql
     {
-        public static long NewId = 0;
+        public const long NewId = 0;
 
         public static string TableName<T>()
         {
