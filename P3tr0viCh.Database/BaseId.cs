@@ -1,4 +1,5 @@
 ﻿using Dapper.Contrib.Extensions;
+using P3tr0viCh.Utils;
 using System.ComponentModel;
 
 namespace P3tr0viCh.Database

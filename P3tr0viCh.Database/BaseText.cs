@@ -1,4 +1,6 @@
-﻿namespace P3tr0viCh.Database
+﻿using P3tr0viCh.Utils;
+
+namespace P3tr0viCh.Database
 {
     public abstract class BaseText : BaseId, IBaseText
     {

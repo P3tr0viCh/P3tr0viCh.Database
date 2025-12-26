@@ -74,11 +74,8 @@
     <Compile Include="ConnectionServer.cs" />
     <Compile Include="ConnectionServerDatabase.cs" />
     <Compile Include="ConnectionSQLite.cs" />
-    <Compile Include="DataGridViewExtensions.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="ExceptionExtensions.cs" />
-    <Compile Include="IBaseId.cs" />
-    <Compile Include="IBaseText.cs" />
     <Compile Include="IConnection.cs" />
     <Compile Include="LocalizedAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
