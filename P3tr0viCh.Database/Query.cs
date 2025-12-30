@@ -4,6 +4,7 @@ namespace P3tr0viCh.Database
 {
     public class Query
     {
+        public string Sql { get; set; } = string.Empty;
         public string Fields { get; set; } = string.Empty;
         public string Table { get; set; } = string.Empty;
         public string Where { get; set; } = string.Empty;
@@ -14,12 +15,21 @@ namespace P3tr0viCh.Database
 
         public override string ToString()
         {
-            if (Fields.IsEmpty())
-            {
-                Fields = "*";
-            }
+            string sql;
 
-            var sql = "SELECT " + Fields;
+            if (Sql.IsEmpty())
+            {
+                if (Fields.IsEmpty())
+                {
+                    Fields = "*";
+                }
+
+                sql = $"SELECT {Fields}";
+            }
+            else
+            {
+                sql = Sql;
+            }
 
             sql = sql.JoinExcludeEmpty(" FROM ", Table);
             sql = sql.JoinExcludeEmpty(" WHERE ", Where);
@@ -35,7 +45,7 @@ namespace P3tr0viCh.Database
             {
                 sql = sql.JoinExcludeEmpty(" OFFSET ", Offset.ToString());
             }
-            
+
             sql += ";";
 
             return sql;

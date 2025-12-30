@@ -64,7 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions.cs" />
+    <Compile Include="DbConnectionExtensions.cs" />
     <Compile Include="BaseId.cs" />
     <Compile Include="BaseText.cs" />
     <Compile Include="ConnectionBase.cs" />
