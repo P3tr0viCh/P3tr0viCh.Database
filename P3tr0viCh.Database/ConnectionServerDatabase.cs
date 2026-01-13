@@ -1,11 +1,13 @@
-﻿using P3tr0viCh.Utils;
+﻿using P3tr0viCh.Database.Properties;
+using P3tr0viCh.Utils;
+using P3tr0viCh.Utils.Attributes;
 
 namespace P3tr0viCh.Database
 {
     public abstract class ConnectionServerDatabase : ConnectionServer
     {
         [PropertyOrder(200)]
-        [LocalizedAttribute.DisplayName("Connection.Database.DisplayName", LocalizedAttributes.ResourceName)]
+        [LocalizedDisplayName("Connection.Database.DisplayName", Const.ResourceName)]
         public string Database { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using P3tr0viCh.Database.Properties;
 using P3tr0viCh.Utils;
+using P3tr0viCh.Utils.Extensions;
 
 namespace P3tr0viCh.Database
 {

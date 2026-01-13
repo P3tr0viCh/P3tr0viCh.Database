@@ -1,7 +1,9 @@
 ﻿using P3tr0viCh.Database.Properties;
 using P3tr0viCh.Utils;
+using P3tr0viCh.Utils.Attributes;
+using P3tr0viCh.Utils.Extensions;
 using System.ComponentModel;
-using static P3tr0viCh.Utils.Converters;
+using P3tr0viCh.Utils.Converters;
 
 namespace P3tr0viCh.Database
 {
@@ -14,7 +16,7 @@ namespace P3tr0viCh.Database
 
         [PropertyOrder(300)]
         [TypeConverter(typeof(BooleanTypeOnOffConverter))]
-        [LocalizedAttribute.DisplayName("Connection.UseSsl.DisplayName", LocalizedAttributes.ResourceName)]
+        [LocalizedDisplayName("Connection.UseSsl.DisplayName", Const.ResourceName)]
         public bool UseSsl { get; set; }
 
         public ConnectionMySql()

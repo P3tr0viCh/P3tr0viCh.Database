@@ -1,10 +1,12 @@
-﻿using P3tr0viCh.Utils;
+﻿using P3tr0viCh.Database.Properties;
+using P3tr0viCh.Utils;
+using P3tr0viCh.Utils.Attributes;
 using System.ComponentModel;
 
 namespace P3tr0viCh.Database
 {
     [TypeConverter(typeof(PropertySortedConverter))]
-    [LocalizedAttribute.DisplayName("Connection.DisplayName", LocalizedAttributes.ResourceName)]
+    [LocalizedDisplayName("Connection.DisplayName", Const.ResourceName)]
     public abstract class ConnectionLogin : ConnectionBase
     {
         [PropertyOrder(300)]

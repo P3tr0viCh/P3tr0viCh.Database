@@ -1,13 +1,14 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
 using P3tr0viCh.Utils;
+using P3tr0viCh.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace P3tr0viCh.Database
+namespace P3tr0viCh.Database.Extensions
 {
     public static class DbConnectionExtensions
     {

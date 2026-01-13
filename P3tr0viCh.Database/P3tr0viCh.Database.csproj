@@ -64,7 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbConnectionExtensions.cs" />
+    <Compile Include="Extensions\DbConnectionExtensions.cs" />
     <Compile Include="BaseId.cs" />
     <Compile Include="BaseText.cs" />
     <Compile Include="ConnectionBase.cs" />
@@ -74,10 +74,10 @@
     <Compile Include="ConnectionServer.cs" />
     <Compile Include="ConnectionServerDatabase.cs" />
     <Compile Include="ConnectionSQLite.cs" />
-    <Compile Include="DateTimeExtensions.cs" />
-    <Compile Include="ExceptionExtensions.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="IConnection.cs" />
-    <Compile Include="LocalizedAttributes.cs" />
+    <Compile Include="Properties\Const.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace P3tr0viCh.Database
+namespace P3tr0viCh.Database.Extensions
 {
     public static class ExceptionExtensions
     {
