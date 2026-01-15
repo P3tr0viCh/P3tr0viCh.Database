@@ -1,6 +1,7 @@
 ﻿using P3tr0viCh.Database.Properties;
 using P3tr0viCh.Utils;
 using P3tr0viCh.Utils.Attributes;
+using P3tr0viCh.Utils.Converters;
 using System.ComponentModel;
 
 namespace P3tr0viCh.Database

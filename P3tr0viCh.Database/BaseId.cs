@@ -14,7 +14,7 @@ namespace P3tr0viCh.Database
         [Computed]
         public bool IsNew => Id == Sql.NewId;
 
-        public void Clear()
+        public virtual void Clear()
         {
             Id = Sql.NewId;
         }

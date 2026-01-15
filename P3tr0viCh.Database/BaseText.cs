@@ -6,7 +6,7 @@ namespace P3tr0viCh.Database
     {
         public string Text { get; set; }
 
-        public new void Clear()
+        public override void Clear()
         {
             base.Clear();
 
